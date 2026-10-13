@@ -146,10 +146,10 @@ void FrameTargeter::beginFrame(const BeginFrameArgs& args, const IVsyncSource& v
                 mBackpressureGpuComposition || !mCompositionCoverage.test(CompositionCoverage::Gpu);
 
         if (!wouldBackpressure || !considerBackpressure) {
-            return false;
+            return 0;
         }
 
-        return mPropagateBackpressure && static_cast<int>((std::abs(fence.expectedPresentTime.ns() - mFrameBeginTime.ns()) <=
+        return static_cast<int>((std::abs(fence.expectedPresentTime.ns() - mFrameBeginTime.ns()) <=
                                  Duration(1ms).ns()));
     }();
 
